@@ -198,7 +198,7 @@ public class GoogleMaps {
 	}
 
 	public static GoogleResponse<GeocodeResult> getGeocodingResponse(
-			GeocodingRequest request) throws ParserConfigurationException,
+			GeocodeRequest request) throws ParserConfigurationException,
 			SAXException, IOException, HttpException, URISyntaxException {
 		HttpGet r = buildGeocodingRequest(request, false);
 		Element doc = executingXmlRequest(r);
@@ -297,7 +297,7 @@ public class GoogleMaps {
 		return new HttpGet(uri);
 	}
 
-	private static HttpGet buildGeocodingRequest(GeocodingRequest request,
+	private static HttpGet buildGeocodingRequest(GeocodeRequest request,
 			boolean isJson) throws URISyntaxException {
 
 		StringBuffer sb = new StringBuffer();
