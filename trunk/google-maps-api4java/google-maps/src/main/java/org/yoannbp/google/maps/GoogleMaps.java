@@ -140,14 +140,17 @@ public class GoogleMaps {
 				ElementStatus elementStatus = ElementStatus
 						.valueFromLabel(XmlUtil.getChildElementByTagName(
 								element, "status").getTextContent());
-				String duration = getChild(element, "duration", "value")
-						.getTextContent();
-				String distance = getChild(element, "distance", "value")
-						.getTextContent();
+				O duration = new O(Long.parseLong(getChild(element, "duration",
+						"value").getTextContent()), getChild(element,
+						"duration", "text").getTextContent());
+				;
+				O distance = new O(Long.parseLong(getChild(element, "distance",
+						"value").getTextContent()), getChild(element,
+						"distance", "text").getTextContent());
 
 				DistanceResult response = new DistanceResult(elementStatus,
-						origins1.get(i), destinations1.get(j),
-						Long.parseLong(duration), Long.parseLong(distance));
+						origins1.get(i), destinations1.get(j), duration,
+						distance);
 				distances.add(response);
 				j++;
 			}

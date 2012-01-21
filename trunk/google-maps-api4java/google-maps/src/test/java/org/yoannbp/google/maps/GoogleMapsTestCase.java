@@ -94,21 +94,23 @@ public class GoogleMapsTestCase {
 
 		DistanceResult result = response.getResults().get(0);
 		assertDistanceResultEquals("Vancouver, BC, Canada",
-				"San Francisco, Californie, États-Unis", 343543, 1742196,
-				result);
+				"San Francisco, Californie, États-Unis", 343543,
+				"3 jours 23 heures", 1742196, "1 742 km", result);
 
 		result = response.getResults().get(1);
 		assertDistanceResultEquals("Vancouver, BC, Canada",
-				"Victoria, BC, Canada", 25064, 136003, result);
+				"Victoria, BC, Canada", 25064, "6 heures 58 minutes", 136003,
+				"136 km", result);
 
 		result = response.getResults().get(2);
 		assertDistanceResultEquals("Seattle, État de Washington, États-Unis",
-				"San Francisco, Californie, États-Unis", 288327, 1481687,
-				result);
+				"San Francisco, Californie, États-Unis", 288327,
+				"3 jours 8 heures", 1481687, "1 482 km", result);
 
 		result = response.getResults().get(3);
 		assertDistanceResultEquals("Seattle, État de Washington, États-Unis",
-				"Victoria, BC, Canada", 44912, 255165, result);
+				"Victoria, BC, Canada", 44912, "12 heures 29 minutes", 255165,
+				"255 km", result);
 
 	}
 
@@ -134,12 +136,17 @@ public class GoogleMapsTestCase {
 	}
 
 	private void assertDistanceResultEquals(String origin, String destination,
-			long duration, long distance, DistanceResult actual) {
+			long duration, String durationText, long distance,
+			String distanceText, DistanceResult actual) {
 		assertNotNull("DistanceResult is null", actual);
 		assertEquals(origin, actual.getOrigin());
 		assertEquals(destination, actual.getDestination());
-		assertEquals(duration, actual.getDuration());
-		assertEquals(distance, actual.getDistance());
+		assertOEquals(duration, durationText, actual.getDuration());
+		assertOEquals(distance, distanceText, actual.getDistance());
 	}
 
+	private void assertOEquals(long expectedValue, String expectedText, O actual) {
+		assertEquals(expectedValue, actual.getValue());
+		assertEquals(expectedText, actual.getText());
+	}
 }
