@@ -1,16 +1,15 @@
 package org.yoannbp.google.maps;
 
-
 public class DistanceResult {
 	private String origin;
 	private String destination;
 
 	private ElementStatus status;
-	private long duration;
-	private long distance;
+	private O duration;
+	private O distance;
 
 	public DistanceResult(ElementStatus status, String origin,
-			String destination, long duration, long distance) {
+			String destination, O duration, O distance) {
 		super();
 		this.origin = origin;
 		this.destination = destination;
@@ -31,11 +30,11 @@ public class DistanceResult {
 		return status;
 	}
 
-	public long getDuration() {
+	public O getDuration() {
 		return duration;
 	}
 
-	public long getDistance() {
+	public O getDistance() {
 		return distance;
 	}
 

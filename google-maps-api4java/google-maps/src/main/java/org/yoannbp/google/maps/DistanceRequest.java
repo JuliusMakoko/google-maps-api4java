@@ -7,10 +7,6 @@ public class DistanceRequest {
 	private Collection<String> origins;
 	private Collection<String> destinations;
 	private Mode mode;
-	/**
-	 * @deprecated useless
-	 */
-	@Deprecated
 	private Units unit;
 	private boolean avoidTolls;
 	private boolean avoidHighways;
