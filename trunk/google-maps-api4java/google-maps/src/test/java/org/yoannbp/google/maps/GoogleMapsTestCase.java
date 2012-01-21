@@ -43,7 +43,7 @@ public class GoogleMapsTestCase {
 	public void testGeocoding() throws Exception {
 		// http://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&sensor=true_or_false
 
-		GeocodingRequest request = new GeocodingRequest(
+		GeocodeRequest request = new GeocodeRequest(
 				"1600 Amphitheatre Parkway, Mountain View, CA", null, null,
 				null, null);
 
@@ -60,7 +60,7 @@ public class GoogleMapsTestCase {
 	public void testGeocoding2() throws Exception {
 		// http://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&sensor=true_or_false
 
-		GeocodingRequest request = new GeocodingRequest(null, new Location(
+		GeocodeRequest request = new GeocodeRequest(null, new Location(
 				40.714224, -73.961452), null, null, null);
 
 		GoogleResponse<GeocodeResult> response = GoogleMaps
@@ -74,7 +74,7 @@ public class GoogleMapsTestCase {
 	public void testGeocoding3() throws Exception {
 		// http://maps.googleapis.com/maps/api/geocode/json?address=Winnetka&sensor=false
 
-		GeocodingRequest request = new GeocodingRequest("Winnetka", null, null,
+		GeocodeRequest request = new GeocodeRequest("Winnetka", null, null,
 				null, null);
 
 		GoogleResponse<GeocodeResult> response = GoogleMaps
@@ -88,7 +88,7 @@ public class GoogleMapsTestCase {
 	public void testGeocoding4() throws Exception {
 		// http://maps.googleapis.com/maps/api/geocode/json?address=Winnetka&bounds=34.172684,-118.604794|34.236144,-118.500938&sensor=false
 
-		GeocodingRequest request = new GeocodingRequest("Winnetka", null,
+		GeocodeRequest request = new GeocodeRequest("Winnetka", null,
 				new Rectangle(new Location(34.172684, -118.604794),
 						new Location(34.236144, -118.500938)), null, null);
 
@@ -102,7 +102,7 @@ public class GoogleMapsTestCase {
 	@Test
 	public void testGeocoding5() throws Exception {
 		// http://maps.googleapis.com/maps/api/geocode/json?address=Toledo&sensor=false
-		GeocodingRequest request = new GeocodingRequest("Toledo", null, null,
+		GeocodeRequest request = new GeocodeRequest("Toledo", null, null,
 				null, null);
 
 		GoogleResponse<GeocodeResult> response = GoogleMaps
@@ -116,7 +116,7 @@ public class GoogleMapsTestCase {
 	public void testGeocoding6() throws Exception {
 		// http://maps.googleapis.com/maps/api/geocode/json?address=Toledo&sensor=false&region=es
 
-		GeocodingRequest request = new GeocodingRequest("Toledo", null, null,
+		GeocodeRequest request = new GeocodeRequest("Toledo", null, null,
 				"es", null);
 
 		GoogleResponse<GeocodeResult> response = GoogleMaps

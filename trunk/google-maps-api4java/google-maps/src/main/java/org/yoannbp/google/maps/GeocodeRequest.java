@@ -1,6 +1,6 @@
 package org.yoannbp.google.maps;
 
-public class GeocodingRequest {
+public class GeocodeRequest {
 	// (required) — The address that you want to geocode.*
 	private String address;
 	// (required) — The textual latitude/longitude value for which you wish to
@@ -27,7 +27,7 @@ public class GeocodingRequest {
 	// // (required)
 	// private boolean sensor;
 
-	public GeocodingRequest(String address, Location latlng, Rectangle bounds,
+	public GeocodeRequest(String address, Location latlng, Rectangle bounds,
 			String region, Language language) {
 		super();
 		this.address = address;
