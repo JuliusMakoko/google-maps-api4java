@@ -1,6 +1,7 @@
 package org.yoannbp.google.maps;
 
-import static junit.framework.Assert.*;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNotNull;
 
 import java.util.Arrays;
 
@@ -12,6 +13,117 @@ public class GoogleMapsTestCase {
 	@BeforeClass
 	public static void setUp() {
 		BasicConfigurator.configure();
+	}
+
+	public static void main(String[] args) throws Exception {
+
+		DistanceRequest request = new DistanceRequest(Arrays.asList("Annecy",
+				"Annemasse"), Arrays.asList("Cruseilles", "Archamps"));
+		request.setAvoidTolls(true);
+
+		GoogleResponse<DistanceResult> response = GoogleMaps
+				.getDistance(request);
+		System.out.println(response);
+		// //
+		// "ABQIAAAASFNA2WWNaQhVyBgZ31K3phT2yXp_ZAY8_ufC3CFXhHIE1NvwkxS7gMTFwqfu7VDHtwcOLSaD0WqPrA"
+		//
+		// GeocodingRequest request = new GeocodingRequest("Chavelot", null,
+		// null,
+		// null, null);
+		//
+		// GeocodingRequest request = new GeocodingRequest(null, new Location(
+		// 40.714224, -73.961452), null, null, null);
+
+		// GoogleResponse<GeocodeResult> response =
+		// getGeocodingResponse(request);
+		// System.out.println(response);
+	}
+
+	@Test
+	public void testGeocoding() throws Exception {
+		// http://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&sensor=true_or_false
+
+		GeocodingRequest request = new GeocodingRequest(
+				"1600 Amphitheatre Parkway, Mountain View, CA", null, null,
+				null, null);
+
+		GoogleResponse<GeocodeResult> response = GoogleMaps
+				.getGeocodingResponse(request);
+		assertOkStatus(response);
+		assertEquals(1, response.getResults().size());
+
+		// TODO check contents
+
+	}
+
+	@Test
+	public void testGeocoding2() throws Exception {
+		// http://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&sensor=true_or_false
+
+		GeocodingRequest request = new GeocodingRequest(null, new Location(
+				40.714224, -73.961452), null, null, null);
+
+		GoogleResponse<GeocodeResult> response = GoogleMaps
+				.getGeocodingResponse(request);
+		assertOkStatus(response);
+		assertEquals(11, response.getResults().size());
+		// TODO check contents
+	}
+
+	@Test
+	public void testGeocoding3() throws Exception {
+		// http://maps.googleapis.com/maps/api/geocode/json?address=Winnetka&sensor=false
+
+		GeocodingRequest request = new GeocodingRequest("Winnetka", null, null,
+				null, null);
+
+		GoogleResponse<GeocodeResult> response = GoogleMaps
+				.getGeocodingResponse(request);
+		assertOkStatus(response);
+		assertEquals(1, response.getResults().size());
+		// TODO check contents
+	}
+
+	@Test
+	public void testGeocoding4() throws Exception {
+		// http://maps.googleapis.com/maps/api/geocode/json?address=Winnetka&bounds=34.172684,-118.604794|34.236144,-118.500938&sensor=false
+
+		GeocodingRequest request = new GeocodingRequest("Winnetka", null,
+				new Rectangle(new Location(34.172684, -118.604794),
+						new Location(34.236144, -118.500938)), null, null);
+
+		GoogleResponse<GeocodeResult> response = GoogleMaps
+				.getGeocodingResponse(request);
+		assertOkStatus(response);
+		assertEquals(1, response.getResults().size());
+		// TODO check contents
+	}
+
+	@Test
+	public void testGeocoding5() throws Exception {
+		// http://maps.googleapis.com/maps/api/geocode/json?address=Toledo&sensor=false
+		GeocodingRequest request = new GeocodingRequest("Toledo", null, null,
+				null, null);
+
+		GoogleResponse<GeocodeResult> response = GoogleMaps
+				.getGeocodingResponse(request);
+		assertOkStatus(response);
+		assertEquals(5, response.getResults().size());
+		// TODO check contents
+	}
+
+	@Test
+	public void testGeocoding6() throws Exception {
+		// http://maps.googleapis.com/maps/api/geocode/json?address=Toledo&sensor=false&region=es
+
+		GeocodingRequest request = new GeocodingRequest("Toledo", null, null,
+				"es", null);
+
+		GoogleResponse<GeocodeResult> response = GoogleMaps
+				.getGeocodingResponse(request);
+		assertOkStatus(response);
+		assertEquals(1, response.getResults().size());
+		// TODO check contents
 	}
 
 	@Test
@@ -145,7 +257,8 @@ public class GoogleMapsTestCase {
 		assertOEquals(distance, distanceText, actual.getDistance());
 	}
 
-	private void assertOEquals(long expectedValue, String expectedText, O actual) {
+	private void assertOEquals(long expectedValue, String expectedText,
+			Pair actual) {
 		assertEquals(expectedValue, actual.getValue());
 		assertEquals(expectedText, actual.getText());
 	}

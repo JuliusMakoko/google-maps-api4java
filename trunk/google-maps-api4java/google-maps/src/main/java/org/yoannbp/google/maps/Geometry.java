@@ -3,11 +3,11 @@ package org.yoannbp.google.maps;
 public class Geometry {
 	private Location location;
 	private String locationType;
-	private Bounds viewport;
-	private Bounds bounds;
+	private Rectangle viewport;
+	private Rectangle bounds;
 
-	public Geometry(Location location, String locationType, Bounds viewport,
-			Bounds bounds) {
+	public Geometry(Location location, String locationType, Rectangle viewport,
+			Rectangle bounds) {
 		super();
 		this.location = location;
 		this.locationType = locationType;
@@ -23,11 +23,11 @@ public class Geometry {
 		return locationType;
 	}
 
-	public Bounds getViewport() {
+	public Rectangle getViewport() {
 		return viewport;
 	}
 
-	public Bounds getBounds() {
+	public Rectangle getBounds() {
 		return bounds;
 	}
 
