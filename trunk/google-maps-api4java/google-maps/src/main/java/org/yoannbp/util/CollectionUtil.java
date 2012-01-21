@@ -3,7 +3,7 @@ package org.yoannbp.util;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StringUtil {
+public class CollectionUtil {
 
 	public static String toString(Iterable<?> collection, String delimiter) {
 		return toString(collection, null, delimiter);

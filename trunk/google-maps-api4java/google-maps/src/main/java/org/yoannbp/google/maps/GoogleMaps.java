@@ -30,7 +30,7 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.yoannbp.util.Getter;
 import org.yoannbp.util.ParserConfigurationError;
-import org.yoannbp.util.StringUtil;
+import org.yoannbp.util.CollectionUtil;
 import org.yoannbp.util.XmlUtil;
 
 /**
@@ -144,9 +144,9 @@ public class GoogleMaps {
 		StringBuffer sb = new StringBuffer();
 
 		sb.append("origins=").append(
-				StringUtil.toString(request.getOrigins(), "|"));
+				CollectionUtil.toString(request.getOrigins(), "|"));
 		sb.append("&destinations=").append(
-				StringUtil.toString(request.getDestinations(), "|"));
+				CollectionUtil.toString(request.getDestinations(), "|"));
 
 		if (request.getMode() != null)
 			sb.append("&mode=").append(request.getMode().getLabel());
@@ -278,11 +278,11 @@ public class GoogleMaps {
 		StringBuffer sb = new StringBuffer();
 		if (request.getLocations() != null) {
 			sb.append("locations=").append(
-					StringUtil.toString(request.getLocations(),
+					CollectionUtil.toString(request.getLocations(),
 							INTERNAL_STRING_GETTER, "|"));
 		} else {
 			sb.append("path=").append(
-					StringUtil.toString(request.getPathes(),
+					CollectionUtil.toString(request.getPathes(),
 							INTERNAL_STRING_GETTER, "|"));
 			if (request.getSamples() > 0)
 				sb.append("&samples=").append(request.getSamples());

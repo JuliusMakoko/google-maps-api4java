@@ -45,7 +45,7 @@ public abstract class XmlUtil {
 	 */
 	public static List<Element> getChildElementsByTagName(Element element,
 			final String tagName) {
-		return StringUtil.filterList(getChildElements(element),
+		return CollectionUtil.filterList(getChildElements(element),
 				new Filter<Element>() {
 					@Override
 					public boolean match(Element obj) {
