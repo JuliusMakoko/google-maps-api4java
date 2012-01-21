@@ -23,7 +23,6 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
-import org.apache.log4j.BasicConfigurator;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -69,28 +68,6 @@ public class GoogleMaps {
 
 	private static final String ORIGIN_ADRESS = "origin_address";
 	private static final String DESTINATION_ADRESS = "destination_address";
-
-	public static void main(String[] args) throws Exception {
-		BasicConfigurator.configure();
-
-		// DistanceRequest request = new DistanceRequest(Arrays.asList("Annecy",
-		// "Annemasse"), Arrays.asList("Cruseilles", "Archamps"));
-		// request.setAvoidTolls(true);
-		//
-		// DistanceResponseMatrix response = getDistance(request);
-		// System.out.println(response);
-		// "ABQIAAAASFNA2WWNaQhVyBgZ31K3phT2yXp_ZAY8_ufC3CFXhHIE1NvwkxS7gMTFwqfu7VDHtwcOLSaD0WqPrA"
-
-		// GeocodingRequest request = new GeocodingRequest("Chavelot", null,
-		// null,
-		// null, null);
-
-		GeocodingRequest request = new GeocodingRequest(null, new Location(
-				40.714224, -73.961452), null, null, null);
-
-		GoogleResponse<GeocodeResult> response = getGeocodingResponse(request);
-		System.out.println(response);
-	}
 
 	public static DistanceResult getDistance(String origin, String destination,
 			Mode mode) throws HttpException, IOException, URISyntaxException,
@@ -140,13 +117,13 @@ public class GoogleMaps {
 				ElementStatus elementStatus = ElementStatus
 						.valueFromLabel(XmlUtil.getChildElementByTagName(
 								element, "status").getTextContent());
-				O duration = new O(Long.parseLong(getChild(element, "duration",
-						"value").getTextContent()), getChild(element,
-						"duration", "text").getTextContent());
+				Pair duration = new Pair(Long.parseLong(getChild(element,
+						"duration", "value").getTextContent()), getChild(
+						element, "duration", "text").getTextContent());
 				;
-				O distance = new O(Long.parseLong(getChild(element, "distance",
-						"value").getTextContent()), getChild(element,
-						"distance", "text").getTextContent());
+				Pair distance = new Pair(Long.parseLong(getChild(element,
+						"distance", "value").getTextContent()), getChild(
+						element, "distance", "text").getTextContent());
 
 				DistanceResult response = new DistanceResult(elementStatus,
 						origins1.get(i), destinations1.get(j), duration,
@@ -178,7 +155,7 @@ public class GoogleMaps {
 			sb.append("&language=").append(request.getLanguage().getCode());
 
 		if (request.getUnit() != null)
-			sb.append("&unit=").append(request.getUnit().getLabel());
+			sb.append("&units=").append(request.getUnit().getLabel());
 
 		if (request.isAvoidTolls())
 			sb.append("&avoid=tolls");
@@ -269,15 +246,15 @@ public class GoogleMaps {
 			String locationType = getChild(geometry1, "location_type")
 					.getTextContent();
 
-			Bounds viewport = new Bounds(parseLocation(getChild(geometry1,
-					"viewport", "northeast")), parseLocation(getChild(
-					geometry1, "viewport", "southwest")));
+			Rectangle viewport = new Rectangle(parseLocation(getChild(
+					geometry1, "viewport", "northeast")),
+					parseLocation(getChild(geometry1, "viewport", "southwest")));
 
 			Element boundsElement = XmlUtil.getChildElementByTagNameIfExists(
 					geometry1, "bounds");
-			Bounds bounds = null;
+			Rectangle bounds = null;
 			if (boundsElement != null) {
-				bounds = new Bounds(parseLocation(getChild(boundsElement,
+				bounds = new Rectangle(parseLocation(getChild(boundsElement,
 						"northeast")), parseLocation(getChild(boundsElement,
 						"southwest")));
 			}
@@ -357,7 +334,7 @@ public class GoogleMaps {
 		return new HttpGet(uri);
 	}
 
-	public static Element getChild(Element element, String... tagNames)
+	private static Element getChild(Element element, String... tagNames)
 			throws SAXException {
 		if (tagNames == null || tagNames.length == 0)
 			return null;
@@ -369,7 +346,7 @@ public class GoogleMaps {
 		}
 	}
 
-	public static Element executingXmlRequest(HttpGet request)
+	private static Element executingXmlRequest(HttpGet request)
 			throws ParserConfigurationException, SAXException, IOException,
 			HttpException {
 
@@ -407,7 +384,7 @@ public class GoogleMaps {
 		return new Location(latitude, longitude);
 	}
 
-	public static Getter<String, Location> INTERNAL_STRING_GETTER = new Getter<String, Location>() {
+	private static Getter<String, Location> INTERNAL_STRING_GETTER = new Getter<String, Location>() {
 		@Override
 		public String get(Location value) {
 			return value.toInternalString();

@@ -5,11 +5,11 @@ public class DistanceResult {
 	private String destination;
 
 	private ElementStatus status;
-	private O duration;
-	private O distance;
+	private Pair duration;
+	private Pair distance;
 
 	public DistanceResult(ElementStatus status, String origin,
-			String destination, O duration, O distance) {
+			String destination, Pair duration, Pair distance) {
 		super();
 		this.origin = origin;
 		this.destination = destination;
@@ -30,11 +30,11 @@ public class DistanceResult {
 		return status;
 	}
 
-	public O getDuration() {
+	public Pair getDuration() {
 		return duration;
 	}
 
-	public O getDistance() {
+	public Pair getDistance() {
 		return distance;
 	}
 

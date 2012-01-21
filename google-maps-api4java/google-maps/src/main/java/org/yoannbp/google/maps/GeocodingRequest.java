@@ -11,7 +11,7 @@ public class GeocodingRequest {
 	// (optional) — The bounding box of the viewport within which to bias
 	// geocode results more prominently. (For more information see Viewport
 	// Biasing below.)
-	private Bounds bounds;
+	private Rectangle bounds;
 
 	// (optional) — The region code, specified as a ccTLD ("top-level domain")
 	// two-character value. (For more information see Region Biasing below.)
@@ -27,7 +27,7 @@ public class GeocodingRequest {
 	// // (required)
 	// private boolean sensor;
 
-	public GeocodingRequest(String address, Location latlng, Bounds bounds,
+	public GeocodingRequest(String address, Location latlng, Rectangle bounds,
 			String region, Language language) {
 		super();
 		this.address = address;
@@ -54,11 +54,11 @@ public class GeocodingRequest {
 		this.latlng = latlng;
 	}
 
-	public Bounds getBounds() {
+	public Rectangle getBounds() {
 		return bounds;
 	}
 
-	public void setBounds(Bounds bounds) {
+	public void setBounds(Rectangle bounds) {
 		this.bounds = bounds;
 	}
 
